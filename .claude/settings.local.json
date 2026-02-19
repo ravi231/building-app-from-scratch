@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(*)",
+      "Search(*)",
+      "Edit(*)",
+      "Write(*)",
+      "Bash(ls*)",
+      "Bash(pwd*)",
+      "Bash(whoami*)",
+      "Bash(cat *.md)",
+      "Bash(cat package.json)",
+      "Bash(cat requirements.txt)",
+      "Bash(cat pyproject.toml)",
+      "Bash(cat cargo.toml)",
+      "Bash(find . -maxdepth 4 -type f -name \"*.js\")",
+      "Bash(find . -maxdepth 4 -type f -name \"*.ts\")",
+      "Bash(find . -maxdepth 4 -type f -name \"*.py\")",
+      "Bash(find . -maxdepth 4 -type f -name \"*.rb\")",
+      "Bash(find . -maxdepth 4 -type f -name \"*.go\")",
+      "Bash(grep -n \"TODO\" -R .)",
+      "Bash(grep -n \"FIXME\" -R .)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(npm install*)",
+      "Bash(npm test*)",
+      "Bash(npm run build*)",
+      "Bash(npm run lint*)",
+      "Bash(yarn*)",
+      "Bash(pnpm*)",
+      "Bash(python -m pip install*)",
+      "Bash(export PATH=\"/home/ravi/.nvm/versions/node/v24.13.1/bin:$PATH\")",
+      "Bash(echo:*)",
+      "Bash(export PATH=\"/home/ravi/.nvm/versions/node/v24.13.1/bin:/usr/bin:/bin:$PATH\")",
+      "Bash(npm run build:*)",
+      "Bash(printf:*)"
+    ]
+  },
+  "model": "opus",
+  "askBeforeRunningTool": false
+}
