@@ -15,17 +15,57 @@ export default function Signup({ searchParams }: { searchParams: { error?: strin
   }
 
   return (
-    <main className="flex items-center justify-center min-h-screen">
-      <form action={signup} className="w-80 space-y-3">
-        <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
-        {searchParams.error && <p className="text-red-500 text-sm">{searchParams.error}</p>}
-        <input name="email" type="email" placeholder="Email" required className="w-full border px-3 py-2 rounded-lg" />
-        <input name="password" type="password" placeholder="Password (min 6 chars)" required minLength={6} className="w-full border px-3 py-2 rounded-lg" />
-        <button className="w-full py-2 bg-black text-white rounded-lg">Sign Up</button>
-        <p className="text-sm text-center text-gray-500">
-          Have an account? <Link href="/login" className="underline">Log in</Link>
+    <main className="flex items-center justify-center min-h-screen px-4">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-black text-white text-sm font-bold mb-4 select-none">
+            LT
+          </div>
+          <h1 className="text-2xl font-bold">Create an account</h1>
+          <p className="text-gray-500 text-sm mt-1">Start tracking your links today</p>
+        </div>
+
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+          <form action={signup} className="space-y-4">
+            {searchParams.error && (
+              <div className="text-red-600 text-sm bg-red-50 border border-red-100 rounded-lg px-3 py-2">
+                {searchParams.error}
+              </div>
+            )}
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                required
+                className="w-full border border-gray-200 px-3 py-2 rounded-lg text-sm outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 transition-colors"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <input
+                name="password"
+                type="password"
+                placeholder="Min. 6 characters"
+                required
+                minLength={6}
+                className="w-full border border-gray-200 px-3 py-2 rounded-lg text-sm outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 transition-colors"
+              />
+            </div>
+            <button className="w-full py-2.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">
+              Create Account
+            </button>
+          </form>
+        </div>
+
+        <p className="text-sm text-center text-gray-500 mt-5">
+          Already have an account?{' '}
+          <Link href="/login" className="text-gray-900 font-medium hover:underline">
+            Log in
+          </Link>
         </p>
-      </form>
+      </div>
     </main>
   )
 }
