@@ -3,7 +3,14 @@
 @tailwind utilities;
 
 @layer base {
-  input, button {
+  :root {
+    --font-inter: 'Inter', sans-serif;
+    --font-bebas: 'Bebas Neue', sans-serif;
+  }
+  .font-display {
+    font-family: var(--font-bebas);
+  }
+  input, button, select, textarea {
     @apply focus-visible:outline-none;
   }
 }

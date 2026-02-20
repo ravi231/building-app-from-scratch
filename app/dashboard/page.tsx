@@ -37,61 +37,73 @@ export default async function Dashboard({ searchParams }: { searchParams: { erro
   const host = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f0ece4]">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-black text-white text-xs font-bold flex items-center justify-center select-none">
-              LT
-            </div>
-            <span className="font-semibold text-gray-900">LinkTrack</span>
-          </div>
+      <nav className="px-6 py-4 border-b-2 border-black flex justify-between items-center">
+        <span className="font-black text-sm tracking-[0.2em] uppercase">LinkTrack</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-mono border-2 border-black bg-white px-3 py-1.5 text-gray-600">
+            {user.email}
+          </span>
           <form action={logout}>
-            <button className="text-sm text-gray-500 hover:text-gray-900 transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100">
-              Logout
+            <button className="text-xs font-black uppercase tracking-widest border-2 border-black px-4 py-1.5 bg-[#FF6B6B] text-white hover:bg-[#ff5555] transition-colors">
+              Exit
             </button>
           </form>
         </div>
-      </header>
+      </nav>
 
       <div className="max-w-3xl mx-auto px-6 py-8">
         {/* Create link section */}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 mb-6">
-          <h2 className="text-sm font-semibold text-gray-700 mb-3">Create a new link</h2>
-          <form action={createLink} className="flex gap-2">
-            <input
-              name="url"
-              type="url"
-              placeholder="https://destination-url.com"
-              required
-              className="flex-1 border border-gray-200 px-3 py-2 rounded-lg text-sm outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 transition-colors"
-            />
-            <input
-              name="slug"
-              placeholder="my-slug"
-              required
-              className="border border-gray-200 px-3 py-2 rounded-lg text-sm outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 transition-colors w-32"
-            />
-            <button className="px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors whitespace-nowrap">
-              Create
-            </button>
+        <div className="border-2 border-black bg-white p-6 mb-8 [box-shadow:4px_4px_0px_#000]">
+          <h2 className="font-black text-base uppercase tracking-widest mb-1">New Target</h2>
+          <div className="w-14 h-0.5 bg-black mb-5" />
+
+          <form action={createLink}>
+            <div className="flex gap-3 items-end">
+              <div className="flex-1">
+                <label className="block text-xs font-black uppercase tracking-widest mb-1.5">
+                  Destination URL
+                </label>
+                <input
+                  name="url"
+                  type="url"
+                  placeholder="https://..."
+                  required
+                  className="w-full border-2 border-black px-3 py-2.5 text-sm font-mono bg-white outline-none focus:border-[#00C4B1] transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-black uppercase tracking-widest mb-1.5">
+                  Slug
+                </label>
+                <div className="flex border-2 border-black">
+                  <span className="px-2.5 flex items-center text-sm font-mono bg-gray-100 border-r-2 border-black select-none">
+                    /
+                  </span>
+                  <input
+                    name="slug"
+                    placeholder="short"
+                    required
+                    className="w-28 px-3 py-2.5 text-sm font-mono bg-white outline-none focus:bg-[#f0ece4] transition-colors"
+                  />
+                </div>
+              </div>
+              <button className="px-5 py-2.5 bg-[#00C4B1] border-2 border-black text-black font-black text-xs uppercase tracking-widest hover:bg-[#00b0a0] transition-colors whitespace-nowrap">
+                Shorten It
+              </button>
+            </div>
+            {searchParams.error && (
+              <p className="text-xs font-mono bg-[#FF6B6B] border-2 border-black px-3 py-2 mt-3 text-white">
+                {searchParams.error}
+              </p>
+            )}
           </form>
-          {searchParams.error && (
-            <p className="text-red-600 text-sm bg-red-50 border border-red-100 rounded-lg px-3 py-2 mt-3">
-              {searchParams.error}
-            </p>
-          )}
-          <p className="text-xs text-gray-400 mt-3">
-            Share as <code className="bg-gray-100 px-1 py-0.5 rounded text-gray-600">{host}/[slug]?source=twitter</code> to track clicks by source.
-          </p>
         </div>
 
         {/* Links list */}
         <div>
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-            Your links {links?.length ? `(${links.length})` : ''}
-          </h2>
+          <h2 className="font-black text-base uppercase tracking-widest mb-4">Active Links</h2>
 
           <div className="space-y-3">
             {links?.map(link => {
@@ -102,41 +114,58 @@ export default async function Dashboard({ searchParams }: { searchParams: { erro
               }, {})
 
               return (
-                <div key={link.id} className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="min-w-0">
+                <div
+                  key={link.id}
+                  className="border-2 border-black bg-white p-4 [box-shadow:4px_4px_0px_#000] flex justify-between items-center gap-6"
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 mb-1">
                       <a
                         href={`${host}/${link.slug}`}
                         target="_blank"
-                        className="font-mono text-sm font-semibold text-gray-900 hover:underline"
+                        className="font-black text-sm hover:underline"
                       >
                         /{link.slug}
                       </a>
-                      <p className="text-xs text-gray-400 truncate mt-0.5">{link.original_url}</p>
+                      <span className="text-xs font-black bg-[#F7C948] border-2 border-black px-1.5 py-0.5 uppercase tracking-wide">
+                        Live
+                      </span>
+                      <span className="text-xs font-mono text-gray-400">
+                        {clicks.length} {clicks.length === 1 ? 'click' : 'clicks'}
+                      </span>
                     </div>
-                    <span className="shrink-0 text-xs font-semibold bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">
-                      {clicks.length} {clicks.length === 1 ? 'click' : 'clicks'}
+                    <p className="text-xs font-mono text-gray-400 truncate">{link.original_url}</p>
+                    {Object.keys(bySource).length > 0 && (
+                      <div className="mt-3 space-y-1.5">
+                        {Object.entries(bySource)
+                          .sort(([, a], [, b]) => (b as number) - (a as number))
+                          .map(([src, count]) => (
+                            <div key={src} className="flex items-center gap-2">
+                              <span className="text-xs font-mono text-gray-500 w-16 truncate">{src}</span>
+                              <div className="flex-1 h-3 bg-[#f0ece4] border-2 border-black">
+                                <div
+                                  className="h-full bg-black"
+                                  style={{ width: `${Math.round(((count as number) / clicks.length) * 100)}%` }}
+                                />
+                              </div>
+                              <span className="text-xs font-black w-4 text-right">{count as number}</span>
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="shrink-0">
+                    <span className="text-xs font-mono border-2 border-black bg-[#f0ece4] px-3 py-1.5 block text-gray-600">
+                      {host}/{link.slug}?source=twitter
                     </span>
                   </div>
-                  {Object.keys(bySource).length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-gray-100">
-                      {Object.entries(bySource).map(([src, count]) => (
-                        <span
-                          key={src}
-                          className="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2 py-0.5 rounded-full"
-                        >
-                          {src}: <span className="font-medium">{count as number}</span>
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </div>
               )
             })}
 
             {!links?.length && (
-              <div className="bg-white rounded-xl border border-gray-200 border-dashed text-center py-12">
-                <p className="text-gray-400 text-sm">No links yet. Create your first one above.</p>
+              <div className="border-2 border-black bg-white text-center py-12 [box-shadow:4px_4px_0px_#000]">
+                <p className="font-mono text-sm text-gray-400">// No links yet. Create one above.</p>
               </div>
             )}
           </div>
